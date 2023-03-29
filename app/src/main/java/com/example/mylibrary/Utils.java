@@ -2,6 +2,7 @@ package com.example.mylibrary;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -85,6 +86,7 @@ public class Utils {
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<Book>>(){}.getType();
         ArrayList<Book> books = gson.fromJson(sharedPreferences.getString(ALREADY_READ_BOOKS,null),type);
+        Log.d("getData", "getAlreadyReadBooks: "+sharedPreferences.getString(ALREADY_READ_BOOKS,null));
         return books;
     }
 
@@ -194,24 +196,27 @@ public class Utils {
     public Boolean removeFromAlreadyRead(Book book)
     {
         ArrayList<Book> books = getAlreadyReadBooks();
+        Boolean isFoundInDb = false;
         if (books != null)
         {
             for (Book b : books)
             {
                 if (b.getId() == book.getId())
                 {
-                    if (books.remove(book))
+                    if (books.remove(b))
                     {
                         Gson gson = new Gson();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.remove(ALREADY_READ_BOOKS);
                         editor.putString(ALREADY_READ_BOOKS,gson.toJson(books));
                         editor.commit();
+                        Log.d("This", "This happen second: ");
                         return true;
                     }
                 }
             }
         }
+
         return false;
     }
     public Boolean removeFromCurrentlyReading(Book book)
@@ -223,7 +228,7 @@ public class Utils {
             {
                 if (b.getId() == book.getId())
                 {
-                    if (books.remove(book))
+                    if (books.remove(b))
                     {
                         Gson gson = new Gson();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -246,7 +251,7 @@ public class Utils {
             {
                 if (b.getId() == book.getId())
                 {
-                    if (books.remove(book))
+                    if (books.remove(b))
                     {
                         Gson gson = new Gson();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -269,7 +274,7 @@ public class Utils {
             {
                 if (b.getId() == book.getId())
                 {
-                    if (books.remove(book))
+                    if (books.remove(b))
                     {
                         Gson gson = new Gson();
                         SharedPreferences.Editor editor = sharedPreferences.edit();

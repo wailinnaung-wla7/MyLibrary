@@ -87,6 +87,7 @@ public class BookRecViewAdapter extends RecyclerView.Adapter<BookRecViewAdapter.
                                 if (Utils.getInstance(mContext).removeFromAlreadyRead(books.get(holder.getAdapterPosition()))) {
                                     Toast.makeText(mContext, "Book removed.", Toast.LENGTH_SHORT).show();
                                     notifyDataSetChanged();
+                                    Log.d("here", "This Happen first");
                                 }
                             }
                         });
